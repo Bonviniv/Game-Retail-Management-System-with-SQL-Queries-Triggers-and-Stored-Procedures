@@ -1,0 +1,42 @@
+CREATE TRIGGER `VerificarGerenteUp` BEFORE UPDATE ON `funcionario`
+ FOR EACH ROW BEGIN
+
+  DECLARE totalGerentes INT;
+  SET totalGerentes = (SELECT COUNT(IdFuncionario) FROM funcionario WHERE Loja_IdLoja = NEW.Loja_IdLoja AND Cargo_Sigla = 'GER');
+ 
+    IF totalGerentes = 1 THEN
+      SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'Unico gerente de loja';
+   
+  END IF;
+END
+
+
+CREATE TRIGGER `VerificarGerenteIn` BEFORE INSERT ON `funcionario`
+ FOR EACH ROW BEGIN
+  DECLARE totalGerentes INT;
+  SET totalGerentes = (SELECT COUNT(IdFuncionario) FROM funcionario WHERE Loja_IdLoja = NEW.Loja_IdLoja AND Cargo_Sigla = 'GER');
+  IF NEW.Cargo_Sigla != 'GER' THEN
+    IF totalGerentes = 0 THEN
+      SIGNAL SQLSTATE '45000'
+      SET MESSAGE_TEXT = 'Loja sem gerencia';
+    END IF;
+  END IF;
+END
+
+
+CREATE TRIGGER `ControleStock` AFTER INSERT ON `jogovenda`
+ FOR EACH ROW BEGIN
+    DECLARE lojaID INT;
+    DECLARE quantStock INT;
+    
+    SET lojaID = (SELECT Loja_IdLoja FROM funcionario WHERE IdFuncionario = (SELECT Funcionario_IdFuncionario FROM venda WHERE IdVenda = NEW.Venda_IdVenda_));
+    SET quantStock = (SELECT Quantidade FROM stock WHERE Loja_IdLoja_ = lojaID AND Jogo_IdJogo_ = NEW.Jogo_IdJogo_);
+                      
+    IF quantStock > 0 THEN
+        INSERT INTO `stock` (`Loja_IdLoja_`, `Jogo_IdJogo_`, `Quantidade`, `DataRegisto`)
+        VALUES (lojaID, NEW.Jogo_IdJogo_, quantStock - 1, NULL);
+    ELSE
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Jogo se encontra fora de stock';
+    END IF;
+END

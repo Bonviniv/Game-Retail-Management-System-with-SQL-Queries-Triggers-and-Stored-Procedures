@@ -1,0 +1,14 @@
+
+Cargo com menos funcionarios associados
+
+SELECT Cargo_Sigla, COUNT(*) AS Total_Funcionarios
+FROM funcionario
+GROUP BY Cargo_Sigla
+ORDER BY Total_Funcionarios ASC
+LIMIT 1;
+
+Porcentagem de vendas feitas em numerario como forma de pagamento
+
+SELECT CONCAT((COUNT(*) / (SELECT COUNT(*) FROM vendaformadepagamento)) * 100, '%') AS Porcentagem
+FROM vendaformadepagamento
+WHERE FormaDePagamento_Sigla_ = 'Num';

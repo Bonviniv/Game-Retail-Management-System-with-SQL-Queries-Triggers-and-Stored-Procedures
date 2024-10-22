@@ -1,0 +1,192 @@
+-- Inserções na tabela `cargo`
+INSERT INTO `cargo` (`Sigla`, `DesignacaoCargo`, `Ordenado`) VALUES
+('GER', 'Gerente de loja', 2500),
+('EMB', 'Empregado de balcao', 1450),
+('VEN', 'Vendedor', 1500),
+('REP', 'Repositor', 1000),
+('AUX', 'Auxiliar de limpeza', 1300),
+('SEG', 'Seguranca', 1900);
+
+-- Inserções na tabela `distrito`
+INSERT INTO `distrito` (`distrito`, `sigla`) VALUES
+('Aveiro', 'AVE'),
+('Beja', 'BEJ'),
+('Braga', 'BRA'),
+('Braganca', 'BRC'),
+('Castelo Branco', 'CB'),
+('Coimbra', 'COI'),
+('Evora', 'EVO'),
+('Faro', 'FAR'),
+('Guarda', 'GUA'),
+('Leiria', 'LEI'),
+('Lisboa', 'LIS'),
+('Portalegre', 'PTG'),
+('Porto', 'POR'),
+('Santarem', 'SAN'),
+('Setubal', 'SET'),
+('Viana do Castelo', 'VC'),
+('Vila Real', 'VR'),
+('Viseu', 'VIS');
+
+-- Inserções na tabela `formadepagamento`
+INSERT INTO `formadepagamento` (`Sigla`, `formaDePagamento`) VALUES
+('Num', 'Forma de Pagamento 1'),
+('FP2', 'Forma de Pagamento 2'),
+('FP3', 'Forma de Pagamento 3'),
+('FP4', 'Forma de Pagamento 4');
+
+-- Inserções na tabela `fornecedor`
+INSERT INTO `fornecedor` (`IdFornecedor`, `Nome`, `Representante`, `RepresentanteContacto`) VALUES
+(1, 'Fornecedor 1', 'Representante 1', '123456789'),
+(2, 'Fornecedor 2', 'Representante 2', '987654321'),
+(3, 'Fornecedor 3', 'Representante 3', '111111111'),
+(4, 'Fornecedor 4', 'Representante 4', '222222222');
+
+-- Inserções na tabela `genero`
+INSERT INTO `genero` (`Sigla`, `genero`) VALUES
+('AC', 'Acao'),
+('AV', 'Aventura'),
+('EST', 'Estrategia'),
+('DES', 'Desporto'),
+('COR', 'Corrida');
+
+-- Inserções na tabela `jogo`
+INSERT INTO `jogo` (`Fornecedor_IdFornecedor`, `IdJogo`, `Nome`, `Preco`, `DataLancamento`, `Gen1`, `Gen2`) VALUES
+(1, 1, 'Jogo 1', 49.99, '2023-01-01', 'AC', 'AV'),
+(2, 2, 'Jogo 2', 39.99, '2023-02-01', 'EST', 'DES'),
+(3, 3, 'Jogo 3', 59.99, '2023-03-01', 'COR', 'AV'),
+(4, 4, 'Jogo 4', 29.99, '2023-04-01', 'DES', 'AC'),
+(1, 5, 'Jogo 5', 49.99, '2023-05-01', 'AC', 'AV'),
+(2, 6, 'Jogo 6', 39.99, '2023-06-01', 'EST', 'DES'),
+(1, 7, 'Jogo 7', 59.99, '2023-07-01', 'COR', 'AV'),
+(3, 8, 'Jogo 8', 29.99, '2023-08-01', 'DES', 'AC');
+
+-- Inserções na tabela `loja`
+INSERT INTO `loja` (`Distrito_sigla`, `IdLoja`, `Localidade`, `Morada`, `DataAbertura`) VALUES
+('LIS', 1, 'Localidade 1', 'Morada 1', '2023-01-01'),
+('POR', 2, 'Localidade 2', 'Morada 2', '2023-02-01'),
+('SET', 3, 'Localidade 3', 'Morada 3', '2023-03-01'),
+('BRA', 4, 'Localidade 4', 'Morada 4', '2023-04-01');
+
+-- Inserções na tabela `stock`
+INSERT INTO `stock` (`Loja_IdLoja_`, `Jogo_IdJogo_`, `Quantidade`, `DataRegisto`) VALUES
+(1, 1, 10, '2023-01-01'),
+(1, 2, 5, '2023-02-01'),
+(2, 3, 15, '2023-03-01'),
+(2, 4, 8, '2023-04-01'),
+(3, 1, 20, '2023-05-01'),
+(3, 2, 12, '2023-06-01'),
+(4, 3, 7, '2023-07-01'),
+(4, 4, 3, '2023-08-01');
+
+-- Inserções na tabela `clientecomperfil`
+INSERT INTO `clientecomperfil` (`Loja_IdLoja`, `IdCliente`, `Nome`, `Idade`, `Morada`, `Telemovel`, `Mail`, `Nif`, `dataDeCriacao`) VALUES
+(1, 1, 'Cliente 1', 30, 'Morada 1', 123456789, 'cliente1@example.com', 123456789, '2023-07-06'),
+(1, 2, 'Cliente 2', 25, 'Morada 2', 987654321, 'cliente2@example.com', 987654321, '2023-07-06'),
+(2, 3, 'Cliente 3', 35, 'Morada 3', 111111111, 'cliente3@example.com', 111111111, '2023-07-06'),
+(2, 4, 'Cliente 4', 40, 'Morada 4', 222222222, 'cliente4@example.com', 222222222, '2023-07-06');
+
+-- Inserções na tabela `despesas`
+INSERT INTO `despesas` (`Loja_IdLoja`, `Ano`, `Mes`, `Luz`, `Agua`, `Aluguer`, `OutrosGastos`, `Imprevistos`, `IdDespesa`) VALUES
+(1, 2023, 1, 100.00, 50.00, 200.00, 50.00, 20.00, 1),
+(1, 2023, 2, 120.00, 60.00, 220.00, 70.00, 10.00, 2),
+(2, 2023, 1, 80.00, 40.00, 180.00, 30.00, 15.00, 3),
+(2, 2023, 2, 110.00, 55.00, 250.00, 60.00, 5.00, 4);
+
+-- Inserções na tabela `func-- Inserções na tabela `funcionario`
+INSERT INTO `funcionario` (`Loja_IdLoja`, `Cargo_Sigla`, `DataDeIngressoCargo`, `DataDeFimCargo`, `IdFuncionario`, `Nome`, `Idade`, `Morada`, `Telemovel`, `Mail`, `Nif`, `DataDeIngresso`, `RegimeHorario`) VALUES
+(1, 'GER', '2022-01-01', NULL, 1, 'Gerente 1', 30, 'Morada 1', 123456789, 'gerente1@example.com', 123456789, '2022-01-01', 'DF'),
+(1, 'EMB', '2022-02-01', NULL, 2, 'Empregado 1', 25, 'Morada 2', 987654321, 'empregado1@example.com', 987654321, '2022-02-01', 'DF'),
+(1, 'VEN', '2022-03-01', NULL, 3, 'Vendedor 1', 35, 'Morada 3', 111111111, 'vendedor1@example.com', 111111111, '2022-03-01', 'DF'),
+(2, 'GER', '2022-04-01', NULL, 4, 'Gerente 2', 40, 'Morada 4', 222222222, 'gerente2@example.com', 222222222, '2022-04-01', 'DF'),
+(2, 'EMB', '2022-05-01', NULL, 5, 'Empregado 2', 28, 'Morada 5', 333333333, 'empregado2@example.com', 333333333, '2022-05-01', 'DF'),
+(2, 'VEN', '2022-06-01', NULL, 6, 'Vendedor 2', 32, 'Morada 6', 444444444, 'vendedor2@example.com', 444444444, '2022-06-01', 'DF'),
+(3, 'GER', '2022-07-01', NULL, 7, 'Gerente 3', 33, 'Morada 7', 555555555, 'gerente3@example.com', 555555555, '2022-07-01', 'DF'),
+(3, 'EMB', '2022-08-01', NULL, 8, 'Empregado 3', 29, 'Morada 8', 666666666, 'empregado3@example.com', 666666666, '2022-08-01', 'DF'),
+(3, 'VEN', '2022-09-01', NULL, 9, 'Vendedor 3', 38, 'Morada 9', 777777777, 'vendedor3@example.com', 777777777, '2022-09-01', 'DF'),
+(4, 'GER', '2022-10-01', NULL, 10, 'Gerente 4', 27, 'Morada 10', 888888888, 'gerente4@example.com', 888888888, '2022-10-01', 'DF'),
+(4, 'EMB', '2022-11-01', NULL, 11, 'Empregado 4', 31, 'Morada 11', 999999999, 'empregado4@example.com', 999999999, '2022-11-01', 'DF'),
+(4, 'VEN', '2022-12-01', NULL, 12, 'Vendedor 4', 36, 'Morada 12', 101010101, 'vendedor4@example.com', 101010101, '2022-12-01', 'DF'),
+('1', 'GER', NULL, NULL, '13', 'Gerente 5', '39', 'Morada 13', NULL, 'gerente5@example.com', '13131313', NULL, 'NF');
+
+-- Inserções na tabela `venda`
+INSERT INTO `venda` (`Loja_IdLoja`, `Funcionario_IdFuncionario`, `ClienteComPerfil_IdCliente`, `IdVenda`, `HoraDaVenda`) VALUES
+(1, 1, 1, 1, '2023-01-01 10:00:00'),
+(1, 1, 2, 2, '2023-01-02 11:00:00'),
+(1, 1, 3, 3, '2023-01-03 12:00:00'),
+(1, 2, 4, 4, '2023-01-04 13:00:00'),
+(1, 2, 1, 5, '2023-01-05 14:00:00'),
+(1, 2, 2, 6, '2023-01-06 15:00:00'),
+(1, 3, 3, 7, '2023-01-07 16:00:00'),
+(1, 3, 4, 8, '2023-01-08 17:00:00'),
+(1, 3, 1, 9, '2023-01-09 18:00:00'),
+(1, 4, 2, 10, '2023-01-10 19:00:00'),
+(2, 4, 3, 11, '2023-02-01 20:00:00'),
+(2, 4, 4, 12, '2023-02-02 21:00:00'),
+(2, 5, 1, 13, '2023-02-03 22:00:00'),
+(2, 5, 2, 14, '2023-02-04 23:00:00'),
+(2, 5, 3, 15, '2023-02-05 10:00:00'),
+(2, 6, 4, 16, '2023-02-06 11:00:00'),
+(2, 6, 1, 17, '2023-02-07 12:00:00'),
+(2, 6, 2, 18, '2023-02-08 13:00:00'),
+(2, 7, 3, 19, '2023-02-09 14:00:00'),
+(2, 7, 4, 20, '2023-02-10 15:00:00');
+
+
+-- Inserções na tabela `vendaformadepagamento`
+INSERT INTO `vendaformadepagamento` (`Venda_IdVenda_`, `FormaDePagamento_Sigla_`) VALUES
+(1, 'Num'),
+(1, 'FP2'),
+(2, 'FP2'),
+(3, 'FP3'),
+(4, 'FP4'),
+(5, 'Num'),
+(6, 'FP2'),
+(7, 'FP3'),
+(8, 'FP4'),
+(9, 'Num'),
+(10, 'FP2'),
+(11, 'FP3'),
+(12, 'FP4'),
+(13, 'Num'),
+(14, 'FP2'),
+(15, 'FP3'),
+(16, 'FP4'),
+(17, 'Num'),
+(18, 'FP2'),
+(19, 'FP3'),
+(20, 'FP4');
+
+
+-- Inserções na tabela `jogovenda`
+INSERT INTO `jogovenda` (`Jogo_IdJogo_`, `Venda_IdVenda_`) VALUES
+(1, 1),
+(2, 1),
+(2, 5),
+(1, 4),
+(1, 10),
+(2, 12),
+(3, 8),
+(3, 16),
+(3, 18),
+(1, 11),
+(2, 4),
+(2, 2),
+(3, 3),
+(4, 4),
+(1, 5),
+(2, 6),
+(3, 7),
+(4, 8),
+(1, 9),
+(2, 10),
+(3, 11),
+(4, 12),
+(1, 13),
+(2, 14),
+(3, 15),
+(4, 16),
+(1, 17),
+(2, 18),
+(3, 19),
+(4, 20);

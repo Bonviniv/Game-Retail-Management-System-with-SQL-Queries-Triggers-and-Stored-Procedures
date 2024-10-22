@@ -1,0 +1,27 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` FUNCTION `ValorVenda`(`vendaID` INT) RETURNS int(11)
+BEGIN
+    DECLARE resultado INT;
+
+    SELECT SUM(Preco) INTO resultado
+    FROM jogo
+    WHERE IdJogo IN (SELECT Jogo_IdJogo_
+                     FROM jogovenda
+                     WHERE Venda_IdVenda_ = vendaID);
+
+    RETURN resultado;
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `TotalVendasDeFuncionarioPorLoja`(IN `lojaId` INT)
+BEGIN
+    SELECT f.IdFuncionario, (
+        SELECT SUM(ValorVenda(v.IdVenda))
+        FROM venda AS v
+        WHERE v.Funcionario_IdFuncionario = f.IdFuncionario
+    ) AS TotalVendas
+    FROM funcionario AS f
+    WHERE f.Loja_IdLoja = lojaId;
+END$$
+DELIMITER ;

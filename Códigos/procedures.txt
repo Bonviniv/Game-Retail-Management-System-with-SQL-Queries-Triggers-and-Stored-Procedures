@@ -1,0 +1,8 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `JogosPorFornecedor`(IN `fornecedorID ` INT)
+BEGIN
+    SELECT *
+    FROM jogo
+    WHERE Fornecedor_IdFornecedor = fornecedorID;
+END$$
+DELIMITER ;

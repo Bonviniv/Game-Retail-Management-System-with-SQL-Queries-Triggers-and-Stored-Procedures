@@ -1,0 +1,90 @@
+
+DROP VIEW IF EXISTS TotalDespesasPorDistrito;
+
+CREATE VIEW TotalDespesasPorDistrito AS
+SELECT
+    l.Distrito_sigla AS distritoLojaSigla,
+    (SELECT SUM(Agua) FROM despesas WHERE Loja_IdLoja = l.IdLoja) AS totalAgua,
+    (SELECT SUM(Luz) FROM despesas WHERE Loja_IdLoja = l.IdLoja) AS totalLuz,
+    (SELECT SUM(Aluguer) FROM despesas WHERE Loja_IdLoja = l.IdLoja) AS totalAluguer,
+    (SELECT SUM(OutrosGastos) FROM despesas WHERE Loja_IdLoja = l.IdLoja) AS totalOutrosGastos,
+    (SELECT SUM(Imprevistos) FROM despesas WHERE Loja_IdLoja = l.IdLoja) AS totalImprevistos,
+    (SELECT SUM(Agua + Luz + Aluguer + OutrosGastos + Imprevistos) FROM despesas WHERE Loja_IdLoja = l.IdLoja) AS totalGeral
+FROM loja AS l
+GROUP BY l.Distrito_sigla
+ORDER BY l.Distrito_sigla;
+
+
+
+DROP VIEW IF EXISTS ListarOrdenados;
+
+CREATE VIEW ListarOrdenados AS
+SELECT 
+    IdFuncionario,
+    Nome,
+    (SELECT DesignacaoCargo FROM cargo WHERE Sigla = Cargo_Sigla) AS Cargo,
+    RegimeHorario AS RH,
+    CASE 
+        WHEN RegimeHorario = "DF" THEN (SELECT Ordenado FROM cargo WHERE Sigla = Cargo_Sigla) * 1.000
+        WHEN RegimeHorario = "DP" THEN (SELECT Ordenado FROM cargo WHERE Sigla = Cargo_Sigla) * 0.500
+        WHEN RegimeHorario = "NF" THEN (SELECT Ordenado FROM cargo WHERE Sigla = Cargo_Sigla) * 1.250
+        WHEN RegimeHorario = "NP" THEN (SELECT Ordenado FROM cargo WHERE Sigla = Cargo_Sigla) * 0.625
+    END AS OrdFinal
+FROM funcionario;
+
+
+
+DROP VIEW IF EXISTS JogoMaisAntigoPorFornecedor;
+
+CREATE VIEW JogoMaisAntigoPorFornecedor AS
+SELECT 
+    f.Nome AS Fornecedor_Nome,
+    (SELECT j.Nome FROM jogo j WHERE j.Fornecedor_IdFornecedor = f.IdFornecedor ORDER BY j.DataLancamento ASC LIMIT 1) AS Jogo_Mais_Antigo
+FROM fornecedor f;
+
+
+
+DROP VIEW IF EXISTS VendedorMenosVendas;
+
+CREATE VIEW VendedorMenosVendas AS
+SELECT
+    f.IdFuncionario,
+    f.Nome AS Funcionario_Nome,
+    (SELECT COUNT(*) FROM venda v WHERE v.Funcionario_IdFuncionario = f.IdFuncionario) AS Total_Vendas
+FROM funcionario f
+WHERE f.Cargo_Sigla = 'VEN' AND (
+    (SELECT COUNT(*) FROM venda WHERE Funcionario_IdFuncionario = f.IdFuncionario) = 0
+    OR (SELECT COUNT(*) FROM venda WHERE Funcionario_IdFuncionario = f.IdFuncionario) = (
+        SELECT MIN(Total_Vendas) FROM (
+            SELECT COUNT(*) AS Total_Vendas FROM venda GROUP BY Funcionario_IdFuncionario
+        ) AS subquery
+    )
+);
+
+
+DROP VIEW IF EXISTS PerfisPorLojaSemRepetirNif;
+
+CREATE VIEW PerfisPorLojaSemRepetirNif AS
+SELECT
+    l.IdLoja,
+    (
+        SELECT COUNT(DISTINCT c.IdCliente)
+        FROM clientecomperfil c
+        WHERE c.Loja_IdLoja = l.IdLoja
+          AND c.Nif NOT IN (
+              SELECT Nif
+              FROM clientecomperfil
+              WHERE Loja_IdLoja = l.IdLoja
+                AND Nif IS NOT NULL
+              GROUP BY Nif
+              HAVING COUNT(*) > 1
+          )
+    ) AS Total_Perfis
+FROM loja l;
+
+
+
+
+
+
+
