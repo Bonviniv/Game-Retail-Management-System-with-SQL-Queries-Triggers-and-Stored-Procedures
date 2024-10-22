@@ -1,0 +1,58 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>BD Loja - Introduzir</title>
+</head>
+
+<body bgcolor="#FFFFFF">
+<p><h3>Introduzir novo jogo:</h3></p>
+<form method="post" action="introduzir.php">
+<label for="Fornecedor_IdFornecedor">IdFornecedor:</label><br/>
+    <input type="text" name="Fornecedor_IdFornecedor" size="8" maxlength="8">
+    <br>
+	 <br>
+	<label for="IdJogo">IdJogo:</label><br/>
+    <input type="text" name="IdJogo" size="8" maxlength="8">
+    <br>
+	 <br>
+    <label for="Nome">Nome:</label><br/>
+    <textarea name="Nome" cols="50" rows="2"></textarea>
+    <br>
+	 <br>
+    <label for="Preco">Preço:</label><br/>
+    <input type="text" name="Preco" size="20" maxlength="20">
+    <br>
+	<br>
+    <label for="DataLancamento">DataLancamento:</label><br/>
+    <input type="text" name="DataLancamento" size="20" maxlength="20">
+    <br>
+	<br>
+	
+	<label for="Gen1">Gen1:</label><br/>
+<select name="Gen1">
+  <option value="AC">AC</option>
+  <option value="AV">AV</option>
+  <option value="COR">COR</option>
+  <option value="DES">DES</option>
+  <option value="EST">EST</option>
+</select>
+<br><br>
+<label for="Gen2">Gen2:</label><br/>
+<select name="Gen2">
+  <option value="AC">AC</option>
+  <option value="AV">AV</option>
+  <option value="COR">COR</option>
+  <option value="DES">DES</option>
+  <option value="EST">EST</option>
+  
+</select>
+<br><br>
+
+	    <input type="submit" name="Submit" value="Introduzir">
+		<input type="reset" name="Submit2" value="Limpar">
+		<input type="button" value="Voltar" onclick="history.back()">
+</p>
+</form>
+<p>&nbsp; </p>
+</body>
+</html>
